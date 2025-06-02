@@ -6,6 +6,7 @@ import (
 	"strconv"
 
 	"github.com/google/uuid"
+	"shup.hilmy.dev/src/internal"
 	"shup.hilmy.dev/src/internal/service"
 )
 
@@ -39,8 +40,8 @@ func (c *File) Get(w http.ResponseWriter, r *http.Request) {
 	ctx := r.Context()
 
 	fileIDStr := path.Base(r.URL.Path)
-	if fileIDStr == "" {
-		http.Error(w, "FileID not provided", http.StatusBadRequest)
+	if fileIDStr == "/" {
+		w.Write(internal.IndexHTML)
 		return
 	}
 
